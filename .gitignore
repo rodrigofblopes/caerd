@@ -1,0 +1,23 @@
+# Arquivos Excel (não commitar dados sensíveis)
+*.xlsx
+*.xls
+
+# Arquivos temporários e de análise
+*.txt
+__pycache__/
+*.pyc
+*.pyo
+
+# Arquivos CSV (podem conter dados sensíveis)
+*.csv
+
+# Arquivos de imagem (serão adicionados manualmente)
+imagens/*.jpg
+imagens/*.jpeg
+imagens/*.png
+imagens/*.gif
+imagens/*.webp
+
+# Manter apenas o LEIA-ME na pasta imagens
+!imagens/LEIA-ME.txt
+

@@ -1,0 +1,19 @@
+COMO USAR AS IMAGENS:
+
+1. Coloque as fotos dos itens nesta pasta (imagens/)
+2. Nomeie os arquivos com o número correspondente ao item na lista (1 a 39)
+3. Formatos suportados: .jpg, .jpeg, .png, .gif, .webp
+
+FORMATO DE NOMES:
+- 1.jpg (item #1)
+- 2.jpg (item #2)
+- 3.jpg (item #3)
+- ... até 39.jpg (item #39)
+
+OU também aceita:
+- 01.jpg, 02.jpg, 03.jpg... (com zero à esquerda)
+- item1.jpg, item2.jpg...
+- #1.jpg, #2.jpg...
+
+O sistema procurará automaticamente a imagem pelo número do item na lista.
+

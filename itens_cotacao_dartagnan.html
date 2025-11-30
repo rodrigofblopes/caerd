@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itens para Cotação - Dartagnan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        th.number {
+            text-align: right;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .number {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .descricao {
+            max-width: 600px;
+            word-wrap: break-word;
+        }
+        
+        .quantidade-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .item-com-imagem {
+            position: relative;
+            cursor: help;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+            max-width: 400px;
+            pointer-events: none;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 10px;
+        }
+        
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 10px solid transparent;
+            border-top-color: #667eea;
+        }
+        
+        .tooltip img {
+            max-width: 350px;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+            border-radius: 5px;
+            display: block;
+            object-fit: contain;
+        }
+        
+        .tooltip .tooltip-text {
+            margin-top: 8px;
+            font-size: 0.85em;
+            color: #666;
+            text-align: center;
+            padding: 5px;
+        }
+        
+        .item-com-imagem:hover .tooltip {
+            display: block;
+        }
+        
+        .icon-imagem {
+            display: inline-block;
+            margin-left: 5px;
+            color: #667eea;
+            font-size: 0.9em;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .item-com-imagem:hover .icon-imagem {
+            opacity: 1;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .tooltip {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Itens para Cotação</h1>
+        </div>
+        
+        <div class="content">
+            <h2 class="section-title">📊 Itens Agrupados por Descrição</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Descrição do Item</th>
+                        <th class="number">Quantidade</th>
+                        <th class="number">Unidade</th>
+                        <th class="number">Valor Unitário (R$)</th>
+                        <th class="number">Valor Total (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td><strong>#1</strong></td>
+                        <td class="descricao">PORTA EM ALUMÍNIO DE ABRIR TIPO VENEZIANA COM GUARNIÇÃO, FIXAÇÃO COM PARAFUSOS - FORNECIMENTO E INSTALAÇÃO. AF_12/2019</td>
+                        <td class="number">
+                            <span class="quantidade-badge">34.92</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 10,248.43</td>
+                        <td class="number"><strong>R$ 61,490.61</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#2</strong></td>
+                        <td class="descricao">REVESTIMENTO CERÂMICO PARA PISO COM PLACAS TIPO ESMALTADA DE DIMENSÕES 35X35 CM APLICADA EM AMBIENTES DE ÁREA MENOR QUE 5 M2. AF_02/2023_PE</td>
+                        <td class="number">
+                            <span class="quantidade-badge">27.92</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 830.99</td>
+                        <td class="number"><strong>R$ 2,492.97</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#3</strong></td>
+                        <td class="descricao">KIT DE ACESSORIOS PARA BANHEIRO EM METAL CROMADO, 5 PECAS, INCLUSO FIXAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">6.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 309.62</td>
+                        <td class="number"><strong>R$ 928.86</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#4</strong></td>
+                        <td class="descricao">Kit de Porta de abrir / giro, de madeira folha media (nbr 15930) de 800 x 2100 mm, de 35 mm a 40 mm de espessura, nucleo semi-solido (sarrafeado), capa frisada em hdf, acabamento melaminico em padrao madeira, itens inclusos: dobradiças, montagem e instalação do batente, fechadura com execução do furo - fornecimento e instalação</td>
+                        <td class="number">
+                            <span class="quantidade-badge">4.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 1,813.19</td>
+                        <td class="number"><strong>R$ 5,439.56</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#5</strong></td>
+                        <td class="descricao">Fornecimento e instalação de janela de alumínio de correr com 2 folhas para vidros, com vidros, batente, acabamento com acetato ou brilhante e ferragens e inclusive contramarco.</td>
+                        <td class="number">
+                            <span class="quantidade-badge">16.549999999999997</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 6,949.01</td>
+                        <td class="number"><strong>R$ 20,847.03</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#6</strong></td>
+                        <td class="descricao">REVESTIMENTO CERÂMICO PARA PAREDES INTERNAS COM PLACAS TIPO ESMALTADA DE DIMENSÕES 20X20 CM APLICADAS NA ALTURA INTEIRA DAS PAREDES.  AF_02/2023_PE</td>
+                        <td class="number">
+                            <span class="quantidade-badge">32.71</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 1,254.59</td>
+                        <td class="number"><strong>R$ 2,509.18</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#7</strong></td>
+                        <td class="descricao">VASO SANITARIO SIFONADO CONVENCIONAL COM LOUÇA BRANCA, INCLUSO CONJUNTO DE LIGAÇÃO PARA BACIA SANITÁRIA AJUSTÁVEL - FORNECIMENTO E INSTALAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">2.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 348.30</td>
+                        <td class="number"><strong>R$ 696.60</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#8</strong></td>
+                        <td class="descricao">CHUVEIRO ELÉTRICO COMUM CORPO PLÁSTICO, TIPO DUCHA - FORNECIMENTO E INSTALAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">2.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 110.92</td>
+                        <td class="number"><strong>R$ 221.84</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#9</strong></td>
+                        <td class="descricao">KIT DE PORTA DE MADEIRA PARA PINTURA, SEMI-OCA (LEVE OU MÉDIA), PADRÃO MÉDIO, 70X210CM, ESPESSURA DE 3,5CM, ITENS INCLUSOS: DOBRADIÇAS, MONTAGEM E INSTALAÇÃO DO BATENTE, FECHADURA COM EXECUÇÃO DO FURO - FORNECIMENTO E INSTALAÇÃO. AF_12/2019</td>
+                        <td class="number">
+                            <span class="quantidade-badge">3.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 1,528.59</td>
+                        <td class="number"><strong>R$ 3,057.18</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#10</strong></td>
+                        <td class="descricao">BANCADA DE GRANITO CINZA POLIDO, DE 1,50 X 0,60 M, PARA PIA DE COZINHA - FORNECIMENTO E INSTALAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">4.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 1,817.06</td>
+                        <td class="number"><strong>R$ 3,634.12</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#11</strong></td>
+                        <td class="descricao">CUBA DE EMBUTIR DE AÇO INOXIDÁVEL MÉDIA, INCLUSO VÁLVULA TIPO AMERICANA EM METAL CROMADO E SIFÃO FLEXÍVEL EM PVC - FORNECIMENTO E INSTALAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">3.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 524.69</td>
+                        <td class="number"><strong>R$ 1,049.37</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#12</strong></td>
+                        <td class="descricao">TORNEIRA CROMADA TUBO MÓVEL, DE MESA, 1/2&quot; OU 3/4&quot;, PARA PIA DE COZINHA, PADRÃO ALTO - FORNECIMENTO E INSTALAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">3.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 237.39</td>
+                        <td class="number"><strong>R$ 474.78</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#13</strong></td>
+                        <td class="descricao">REGISTRO DE GAVETA BRUTO, LATÃO, ROSCÁVEL, 1&quot;, COM ACABAMENTO E CANOPLA CROMADOS - FORNECIMENTO E INSTALAÇÃO. AF_08/2021</td>
+                        <td class="number">
+                            <span class="quantidade-badge">3.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 154.57</td>
+                        <td class="number"><strong>R$ 309.15</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#14</strong></td>
+                        <td class="descricao">REGISTRO DE PRESSÃO BRUTO, LATÃO, ROSCÁVEL, 1/2&quot;, COM ACABAMENTO E CANOPLA CROMADOS - FORNECIMENTO E INSTALAÇÃO. AF_08/2021</td>
+                        <td class="number">
+                            <span class="quantidade-badge">2.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 76.15</td>
+                        <td class="number"><strong>R$ 152.30</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#15</strong></td>
+                        <td class="descricao">BARRA DE APOIO RETA, EM ACO INOX POLIDO, COMPRIMENTO 80 CM,  FIXADA NA PAREDE - FORNECIMENTO E INSTALAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">4.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 755.62</td>
+                        <td class="number"><strong>R$ 1,511.24</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#16</strong></td>
+                        <td class="descricao">GUARDA-CORPO DE AÇO GALVANIZADO DE 1,10M DE ALTURA, MONTANTES TUBULARES DE 1.1/2  ESPAÇADOS DE 1,20M, TRAVESSA SUPERIOR DE 2 , GRADIL FORMADO POR BARRAS CHATAS EM FERRO DE 32X4,8MM, FIXADO COM CHUMBADOR MECÂNICO. AF_04/2019_PS</td>
+                        <td class="number">
+                            <span class="quantidade-badge">39.8</span>
+                        </td>
+                        <td class="number">M</td>
+                        <td class="number">R$ 11,787.36</td>
+                        <td class="number"><strong>R$ 23,574.72</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#17</strong></td>
+                        <td class="descricao">Escada tipo marinheiro em tubo aco galvanizado 1 1/2&quot; 5 degraus, inclusive corrimão, pintura com zarcão e esmalte sintético</td>
+                        <td class="number">
+                            <span class="quantidade-badge">0.87</span>
+                        </td>
+                        <td class="number">M</td>
+                        <td class="number">R$ 626.79</td>
+                        <td class="number"><strong>R$ 626.79</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#18</strong></td>
+                        <td class="descricao">LAVATÓRIO LOUÇA BRANCA COM COLUNA, *44 X 35,5* CM, PADRÃO POPULAR, INCLUSO SIFÃO FLEXÍVEL EM PVC, VÁLVULA E ENGATE FLEXÍVEL 30CM EM PLÁSTICO E COM TORNEIRA CROMADA PADRÃO POPULAR - FORNECIMENTO E INSTALAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 473.84</td>
+                        <td class="number"><strong>R$ 473.84</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#19</strong></td>
+                        <td class="descricao">INSTALAÇÃO DE VIDRO LISO INCOLOR, E = 3 MM, EM ESQUADRIA DE MADEIRA, FIXADO COM BAGUETE. AF_01/2021</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.5</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 499.36</td>
+                        <td class="number"><strong>R$ 499.36</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#20</strong></td>
+                        <td class="descricao">INSTALAÇÃO DE VIDRO LISO INCOLOR, E = 4 MM, EM ESQUADRIA DE ALUMÍNIO OU PVC, FIXADO COM BAGUETE. AF_01/2021_PS</td>
+                        <td class="number">
+                            <span class="quantidade-badge">2.34</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 1,142.94</td>
+                        <td class="number"><strong>R$ 1,142.94</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#21</strong></td>
+                        <td class="descricao">Aquisição e instalação de Ventilador/Exaustor Axial Industrial, Preto, 30cm, 127v, inclusive instalações elétricas</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 655.31</td>
+                        <td class="number"><strong>R$ 655.31</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#22</strong></td>
+                        <td class="descricao">Aquisição e instalação de Detector de Gás Cloro - DCM 2000, inclusive instalações elétricas</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 23,159.40</td>
+                        <td class="number"><strong>R$ 23,159.40</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#23</strong></td>
+                        <td class="descricao">Portao de correr em chapa tipo painel lambril quadrado, com porta social completa incluida, com requadro, acabamento natural, com trilhos e roldanas, inclusive pintura com zarcão e esmalte sintético</td>
+                        <td class="number">
+                            <span class="quantidade-badge">8.7</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 4,580.11</td>
+                        <td class="number"><strong>R$ 4,580.11</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#24</strong></td>
+                        <td class="descricao">Kit de Porta tipo Celeiro, de madeira folha media (nbr 15930) de 700 x 2100 mm, de 35 mm a 40 mm de espessura, nucleo semi-solido (sarrafeado), capa frisada em hdf, acabamento melaminico em padrao madeira, itens inclusos: montagem e instalação do kit roldanas, fechadura com execução do furo - fornecimento e instalação</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 942.94</td>
+                        <td class="number"><strong>R$ 942.94</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#25</strong></td>
+                        <td class="descricao">Porta em alumínio de correr tipo veneziana com guarnição, fixação com parafusos - fornecimento e instalação. Af_12/2019</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.12</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 2,420.23</td>
+                        <td class="number"><strong>R$ 2,420.23</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#26</strong></td>
+                        <td class="descricao">SABONETEIRA PLASTICA TIPO DISPENSER PARA SABONETE LIQUIDO COM RESERVATORIO 800 A 1500 ML, INCLUSO FIXAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 97.69</td>
+                        <td class="number"><strong>R$ 97.69</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#27</strong></td>
+                        <td class="descricao">MICTÓRIO SIFONADO LOUÇA BRANCA - PADRÃO MÉDIO - FORNECIMENTO E INSTALAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 724.22</td>
+                        <td class="number"><strong>R$ 724.22</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#28</strong></td>
+                        <td class="descricao">Fornecimento de Banco sem Encosto 3 Lugares Madeira</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 671.79</td>
+                        <td class="number"><strong>R$ 671.79</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#29</strong></td>
+                        <td class="descricao">TELHAMENTO COM TELHA ESTRUTURAL DE FIBROCIMENTO E= 8 MM, COM ATÉ 2 ÁGUAS, INCLUSO IÇAMENTO. AF_07/2019_PS</td>
+                        <td class="number">
+                            <span class="quantidade-badge">210.88</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 31,338.87</td>
+                        <td class="number"><strong>R$ 31,338.87</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#30</strong></td>
+                        <td class="descricao">SUBCOBERTURA COM MANTA PLÁSTICA REVESTIDA POR PELÍCULA DE ALUMÍNO, INCLUSO TRANSPORTE VERTICAL. AF_07/2019</td>
+                        <td class="number">
+                            <span class="quantidade-badge">210.88</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 5,898.31</td>
+                        <td class="number"><strong>R$ 5,898.31</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#31</strong></td>
+                        <td class="descricao">Aquisição e instalação de Porta de abrir em aco tipo veneziana, com fundo anticorrosivo / primer de protecao, sem guarnicao/alizar/vista, 90 x 210 cm</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 596.02</td>
+                        <td class="number"><strong>R$ 596.02</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#32</strong></td>
+                        <td class="descricao">Fornecimento e instalação de janela fixa de alumínio para vidro, com vidro, batente e ferragens, inlusive acabamento, alizar e contramarco</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.98</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 5,006.84</td>
+                        <td class="number"><strong>R$ 5,006.84</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#33</strong></td>
+                        <td class="descricao">Kit porta pronta de madeira, folha leve (nbr 15930) de 900 x 2100 mm, de 35 mm a 40 mm de espessura, com marco em aco, nucleo colmeia, capa lisa em hdf, acabamento melaminico branco (inclui marco, alizares, dobradicas e fechadura),  com execução do furo - fornecimento e instalação</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 835.34</td>
+                        <td class="number"><strong>R$ 835.34</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#34</strong></td>
+                        <td class="descricao">Fornecimento e instalação de janela de alumínio tipo maxim-ar, com vidros, batente e ferragens, inclusive acabamento e contramarco.</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.12</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 2,497.82</td>
+                        <td class="number"><strong>R$ 2,497.82</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#35</strong></td>
+                        <td class="descricao">Aquisição e instalação de bancada granito cinza, com cuba de embutir de aço, válvula americana em metal, sifão flexível em pvc, engate flexível 30 cm, torneira cromada longa, de parede, 1/2 ou 3/4, p/ cozinha, padrão popular</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.1</span>
+                        </td>
+                        <td class="number">m²</td>
+                        <td class="number">R$ 4,255.91</td>
+                        <td class="number"><strong>R$ 4,255.91</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#36</strong></td>
+                        <td class="descricao">LAVATÓRIO LOUÇA BRANCA COM COLUNA, 45 X 55CM OU EQUIVALENTE, PADRÃO MÉDIO, INCLUSO SIFÃO TIPO GARRAFA, VÁLVULA E ENGATE FLEXÍVEL DE 40CM EM METAL CROMADO, COM TORNEIRA CROMADA DE MESA, PADRÃO MÉDIO - FORNECIMENTO E INSTALAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 929.54</td>
+                        <td class="number"><strong>R$ 929.54</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#37</strong></td>
+                        <td class="descricao">VASO SANITARIO SIFONADO CONVENCIONAL PARA PCD SEM FURO FRONTAL COM LOUÇA BRANCA SEM ASSENTO, INCLUSO CONJUNTO DE LIGAÇÃO PARA BACIA SANITÁRIA AJUSTÁVEL - FORNECIMENTO E INSTALAÇÃO. AF_01/2020</td>
+                        <td class="number">
+                            <span class="quantidade-badge">1.0</span>
+                        </td>
+                        <td class="number">UN</td>
+                        <td class="number">R$ 897.17</td>
+                        <td class="number"><strong>R$ 897.17</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#38</strong></td>
+                        <td class="descricao">CORRIMÃO SIMPLES, DIÂMETRO EXTERNO = 1 1/2&quot;, EM AÇO GALVANIZADO. AF_04/2019_PS</td>
+                        <td class="number">
+                            <span class="quantidade-badge">14.64</span>
+                        </td>
+                        <td class="number">M</td>
+                        <td class="number">R$ 1,863.67</td>
+                        <td class="number"><strong>R$ 1,863.67</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>#39</strong></td>
+                        <td class="descricao">GUARDA-CORPO DE AÇO GALVANIZADO DE 1,10M, MONTANTES TUBULARES DE 1.1/4&quot; ESPAÇADOS DE 1,20M, TRAVESSA SUPERIOR DE 1.1/2&quot;, GRADIL FORMADO POR TUBOS HORIZONTAIS DE 1&quot; E VERTICAIS DE 3/4&quot;, FIXADO COM CHUMBADOR MECÂNICO. AF_04/2019_PS</td>
+                        <td class="number">
+                            <span class="quantidade-badge">18.93</span>
+                        </td>
+                        <td class="number">M</td>
+                        <td class="number">R$ 13,473.42</td>
+                        <td class="number"><strong>R$ 13,473.42</strong></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        // Melhorar posicionamento dos tooltips
+        document.addEventListener('DOMContentLoaded', function() {{
+            const itemsComImagem = document.querySelectorAll('.item-com-imagem');
+            
+            itemsComImagem.forEach(item => {{
+                const tooltip = item.querySelector('.tooltip');
+                
+                item.addEventListener('mouseenter', function(e) {{
+                    // Ajustar posicionamento baseado na posição na tela
+                    const rect = item.getBoundingClientRect();
+                    const tooltipRect = tooltip.getBoundingClientRect();
+                    
+                    // Se tooltip sair da tela à direita, alinhar à direita
+                    if (rect.left + tooltipRect.width > window.innerWidth) {{
+                        tooltip.style.left = 'auto';
+                        tooltip.style.right = '0';
+                        tooltip.style.transform = 'none';
+                    }} else {{
+                        tooltip.style.left = '50%';
+                        tooltip.style.right = 'auto';
+                        tooltip.style.transform = 'translateX(-50%)';
+                    }}
+                    
+                    // Se tooltip sair da tela acima, mostrar abaixo
+                    if (rect.top - tooltipRect.height < 0) {{
+                        tooltip.style.bottom = 'auto';
+                        tooltip.style.top = '100%';
+                        tooltip.style.marginBottom = '0';
+                        tooltip.style.marginTop = '10px';
+                    }} else {{
+                        tooltip.style.bottom = '100%';
+                        tooltip.style.top = 'auto';
+                        tooltip.style.marginBottom = '10px';
+                        tooltip.style.marginTop = '0';
+                    }}
+                }});
+            }});
+        }});
+    </script>
+</body>
+</html>
