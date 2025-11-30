@@ -1,0 +1,17 @@
+{
+  "name": "caerd-cotacao",
+  "version": "1.0.0",
+  "description": "Sistema de cotação para medição CAERD",
+  "main": "itens_cotacao_dartagnan.html",
+  "scripts": {
+    "build": "echo 'No build step required'"
+  },
+  "keywords": [
+    "cotacao",
+    "medicao",
+    "caerd"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+
