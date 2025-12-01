@@ -5,6 +5,7 @@ import html
 import os
 import glob
 import re
+import json
 
 def processar_planilha_para_cotacao():
     """Processa a planilha e agrupa itens repetidos"""
@@ -269,6 +270,183 @@ def buscar_imagem_item(numero_item):
     
     return None
 
+def processar_checklist():
+    """Processa arquivo Excel de checklist"""
+    arquivos_checklist = ['checklist.xlsx', 'Checklist.xlsx', 'CHECKLIST.xlsx']
+    arquivo_encontrado = None
+    
+    for arquivo in arquivos_checklist:
+        if os.path.exists(arquivo):
+            arquivo_encontrado = arquivo
+            break
+    
+    if not arquivo_encontrado:
+        return None
+    
+    try:
+        df = pd.read_excel(arquivo_encontrado, header=None)
+        checklist_data = []
+        
+        # Processar dados do checklist
+        for idx, row in df.iterrows():
+            item = None
+            status = False
+            
+            if len(df.columns) == 1:
+                if pd.notna(row[0]):
+                    item = str(row[0]).strip()
+            else:
+                if pd.notna(row[0]):
+                    item = str(row[0]).strip()
+                # Verificar outras colunas para status
+                for col_idx in range(1, min(3, len(df.columns))):
+                    if pd.notna(row[col_idx]):
+                        valor = str(row[col_idx]).strip().lower()
+                        if valor in ['x', 'sim', 'ok', 'concluído', 'concluido', 'feito', '1']:
+                            status = True
+            
+            # Ignorar primeira linha se for cabeçalho comum
+            if idx == 0 and item:
+                item_lower = item.lower()
+                if item_lower in ['item', 'descrição', 'descricao', 'status', 'concluído', 'concluido']:
+                    continue
+            
+            if item and item.lower() not in ['nan', 'none', '']:
+                checklist_data.append({
+                    'item': item,
+                    'concluido': status
+                })
+        
+        return checklist_data
+    except Exception as e:
+        print(f"Erro ao processar checklist: {e}")
+        return None
+
+def criar_html_checklist(checklist_data):
+    """Cria HTML para o checklist"""
+    if not checklist_data:
+        return """
+        <div style="text-align: center; padding: 40px;">
+            <p style="color: #666; margin-bottom: 20px;">
+                📋 Nenhum arquivo de checklist encontrado.
+            </p>
+            <p style="color: #999; font-size: 0.9em;">
+                Crie um arquivo <strong>checklist.xlsx</strong> na pasta do projeto com os itens do checklist.
+            </p>
+        </div>
+        """
+    
+    total = len(checklist_data)
+    concluidos = sum(1 for item in checklist_data if item.get('concluido', False))
+    pendentes = total - concluidos
+    
+    html_content = f"""
+    <div style="max-width: 800px; margin: 0 auto;">
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <p style="margin: 0; color: #666;">
+                <strong>Total de itens:</strong> {total} | 
+                <strong>Concluídos:</strong> <span style="color: #2e7d32;">{concluidos}</span> | 
+                <strong>Pendentes:</strong> <span style="color: #d32f2f;">{pendentes}</span>
+            </p>
+        </div>
+        
+        <div style="background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #667eea; color: white;">
+                        <th style="padding: 15px; text-align: left; width: 50px;">✓</th>
+                        <th style="padding: 15px; text-align: left;">Item do Checklist</th>
+                    </tr>
+                </thead>
+                <tbody>
+"""
+    
+    for i, item_data in enumerate(checklist_data, 1):
+        item_text = html.escape(str(item_data['item']))
+        concluido = item_data.get('concluido', False)
+        checked = 'checked' if concluido else ''
+        linha_style = 'background: #e8f5e9;' if concluido else ''
+        
+        html_content += f"""
+                    <tr style="{linha_style}">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_{i-1}" {checked} onchange="atualizarChecklist({i-1}, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_{i-1}" style="cursor: pointer; display: block; margin: 0;">
+                                {item_text}
+                            </label>
+                        </td>
+                    </tr>
+"""
+    
+    checklist_json = json.dumps(checklist_data, ensure_ascii=False)
+    
+    html_content += f"""
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        let checklistData = {checklist_json};
+        
+        function atualizarChecklist(index, concluido) {{
+            checklistData[index].concluido = concluido;
+            atualizarEstatisticas();
+            salvarChecklist();
+        }}
+        
+        function atualizarEstatisticas() {{
+            const total = checklistData.length;
+            const concluidos = checklistData.filter(item => item.concluido).length;
+            const pendentes = total - concluidos;
+            
+            // Atualizar visualmente as linhas
+            const rows = document.querySelectorAll('#checklist-content tbody tr');
+            rows.forEach((row, index) => {{
+                if (checklistData[index].concluido) {{
+                    row.style.background = '#e8f5e9';
+                }} else {{
+                    row.style.background = '';
+                }}
+            }});
+        }}
+        
+        function salvarChecklist() {{
+            localStorage.setItem('checklist_caerd', JSON.stringify(checklistData));
+        }}
+        
+        function carregarChecklist() {{
+            const saved = localStorage.getItem('checklist_caerd');
+            if (saved) {{
+                const savedData = JSON.parse(saved);
+                savedData.forEach((item, index) => {{
+                    if (index < checklistData.length) {{
+                        checklistData[index].concluido = item.concluido;
+                    }}
+                }});
+                
+                const checkboxes = document.querySelectorAll('#checklist-content input[type="checkbox"]');
+                checkboxes.forEach((checkbox, index) => {{
+                    if (index < checklistData.length) {{
+                        checkbox.checked = checklistData[index].concluido;
+                    }}
+                }});
+                
+                atualizarEstatisticas();
+            }}
+        }}
+        
+        document.addEventListener('DOMContentLoaded', function() {{
+            carregarChecklist();
+        }});
+    </script>
+"""
+    
+    return html_content
+
 def criar_html_cotacao(itens_agrupados):
     """Cria página HTML focada em cotação"""
     
@@ -279,6 +457,10 @@ def criar_html_cotacao(itens_agrupados):
     for i, item in enumerate(itens_repetidos, 1):
         item['imagem'] = buscar_imagem_item(i)
         item['numero_item'] = i  # Adicionar número do item
+    
+    # Processar checklist
+    checklist_data = processar_checklist()
+    html_checklist = criar_html_checklist(checklist_data)
     
     html_content = f"""<!DOCTYPE html>
 <html lang="pt-BR">
@@ -328,6 +510,48 @@ def criar_html_cotacao(itens_agrupados):
         
         .content {{
             padding: 30px;
+        }}
+        
+        .tabs-container {{
+            margin-bottom: 20px;
+        }}
+        
+        .tabs {{
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }}
+        
+        .tab-button {{
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+        }}
+        
+        .tab-button:hover {{
+            color: #667eea;
+            background: #f5f5f5;
+        }}
+        
+        .tab-button.active {{
+            color: #667eea;
+            border-bottom-color: #667eea;
+            font-weight: 600;
+        }}
+        
+        .tab-content {{
+            display: none;
+        }}
+        
+        .tab-content.active {{
+            display: block;
         }}
         
         .section-title {{
@@ -470,9 +694,17 @@ def criar_html_cotacao(itens_agrupados):
         </div>
         
         <div class="content">
-            <h2 class="section-title">📊 Itens Agrupados por Descrição</h2>
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab-button active" onclick="showTab('insumos')">Insumos</button>
+                    <button class="tab-button" onclick="showTab('checklist')">Checklist</button>
+                </div>
+            </div>
             
-            <table>
+            <div id="insumos" class="tab-content active">
+                <h2 class="section-title">📊 Insumos Medição Dezembro</h2>
+                
+                <table>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -529,13 +761,39 @@ def criar_html_cotacao(itens_agrupados):
                     </tr>
 """
     
-    html_content += """
+    html_content += f"""
                 </tbody>
             </table>
+            </div>
+            
+            <div id="checklist" class="tab-content">
+                <h2 class="section-title">✅ Checklist da Obra</h2>
+                <div id="checklist-content">
+                    {html_checklist}
+                </div>
+            </div>
         </div>
     </div>
     
     <script>
+        function showTab(tabName) {{
+            // Esconder todos os conteúdos
+            document.querySelectorAll('.tab-content').forEach(content => {{
+                content.classList.remove('active');
+            }});
+            
+            // Remover active de todos os botões
+            document.querySelectorAll('.tab-button').forEach(button => {{
+                button.classList.remove('active');
+            }});
+            
+            // Mostrar conteúdo selecionado
+            document.getElementById(tabName).classList.add('active');
+            
+            // Ativar botão correspondente
+            event.target.classList.add('active');
+        }}
+        
         // Melhorar posicionamento dos tooltips
         document.addEventListener('DOMContentLoaded', function() {{
             const itemsComImagem = document.querySelectorAll('.item-com-imagem');
