@@ -678,12 +678,177 @@ def criar_html_cotacao(itens_agrupados):
             opacity: 1;
         }}
         
+        /* Responsividade Mobile */
+        .table-wrapper {{
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -15px;
+            padding: 0 15px;
+        }}
+        
+        .table-wrapper table {{
+            min-width: 800px;
+        }}
+        
+        /* Cards para mobile - alternativa à tabela */
+        .mobile-card {{
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }}
+        
+        .mobile-card-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }}
+        
+        .mobile-card-title {{
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }}
+        
+        .mobile-card-content {{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.9em;
+        }}
+        
+        .mobile-card-label {{
+            font-weight: 600;
+            color: #666;
+        }}
+        
+        .mobile-card-value {{
+            text-align: right;
+            color: #333;
+        }}
+        
+        .mobile-card-desc {{
+            grid-column: 1 / -1;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }}
+        
+        @media (max-width: 768px) {{
+            body {{
+                padding: 10px;
+            }}
+            
+            .container {{
+                border-radius: 10px;
+            }}
+            
+            .header {{
+                padding: 20px 15px;
+            }}
+            
+            .header h1 {{
+                font-size: 1.8em;
+            }}
+            
+            .content {{
+                padding: 15px;
+            }}
+            
+            .tabs {{
+                gap: 5px;
+                flex-wrap: wrap;
+            }}
+            
+            .tab-button {{
+                padding: 14px 20px;
+                font-size: 1em;
+                flex: 1;
+                min-width: 120px;
+                -webkit-tap-highlight-color: transparent;
+            }}
+            
+            .section-title {{
+                font-size: 1.4em;
+                margin-bottom: 15px;
+            }}
+            
+            /* Esconder tabela em mobile, mostrar cards */
+            .table-wrapper {{
+                display: none;
+            }}
+            
+            .mobile-cards-container {{
+                display: block;
+            }}
+            
+            .mobile-card {{
+                display: block;
+            }}
+            
+            /* Tooltip mobile - usar touch */
+            .item-com-imagem {{
+                cursor: pointer;
+            }}
+            
+            .item-com-imagem.active .tooltip {{
+                display: block;
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                max-width: 90vw;
+                max-height: 60vh;
+                z-index: 10000;
+            }}
+            
+            .item-com-imagem.active .tooltip::after {{
+                display: none;
+            }}
+            
+            .tooltip img {{
+                max-width: 100%;
+                max-height: 50vh;
+            }}
+            
+            /* Checklist mobile */
+            #checklist-content table {{
+                font-size: 0.9em;
+            }}
+            
+            #checklist-content th,
+            #checklist-content td {{
+                padding: 10px 8px;
+            }}
+            
+            #checklist-content input[type="checkbox"] {{
+                width: 24px;
+                height: 24px;
+            }}
+        }}
+        
+        @media (min-width: 769px) {{
+            .mobile-cards-container {{
+                display: none;
+            }}
+        }}
+        
         @media print {{
             body {{
                 background: white;
             }}
             .tooltip {{
                 display: none !important;
+            }}
+            .mobile-cards-container {{
+                display: none;
             }}
         }}
     </style>
@@ -705,18 +870,19 @@ def criar_html_cotacao(itens_agrupados):
             <div id="insumos" class="tab-content active">
                 <h2 class="section-title">📊 Insumos Medição Dezembro</h2>
                 
-                <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Descrição do Item</th>
-                        <th class="number">Quantidade</th>
-                        <th class="number">Unidade</th>
-                        <th class="number">Valor Unitário (R$)</th>
-                        <th class="number">Valor Total (R$)</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <div class="table-wrapper">
+                    <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Descrição do Item</th>
+                            <th class="number">Quantidade</th>
+                            <th class="number">Unidade</th>
+                            <th class="number">Valor Unitário (R$)</th>
+                            <th class="number">Valor Total (R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 """
     
     # Adicionar itens repetidos
@@ -763,8 +929,67 @@ def criar_html_cotacao(itens_agrupados):
 """
     
     html_content += f"""
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+                </div>
+                
+                <!-- Cards para Mobile -->
+                <div class="mobile-cards-container">
+"""
+    
+    # Adicionar cards mobile
+    for i, item in enumerate(itens_repetidos, 1):
+        desc_escaped = html.escape(item['descricao'])
+        unidade_escaped = html.escape(str(item.get('unidade', 'UN')))
+        imagem = item.get('imagem', None)
+        numero_item = item.get('numero_item', i)
+        
+        # Se tiver imagem, adicionar tooltip
+        if imagem:
+            imagem_escaped = html.escape(imagem)
+            html_content += f"""
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#{numero_item}</span>
+                            <span class="quantidade-badge">{item.get('quantidade_total', item['quantidade'])} {unidade_escaped}</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ {item['valor_unitario']:,.2f}</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ {item['valor_total']:,.2f}</strong></span>
+                        </div>
+                        <div class="mobile-card-desc item-com-imagem">
+                            {desc_escaped}
+                            <span class="icon-imagem">📷</span>
+                            <div class="tooltip">
+                                <img src="{imagem_escaped}" alt="Imagem do item #{numero_item}" onerror="this.style.display='none'; this.parentElement.querySelector('.tooltip-text').textContent='Imagem #{numero_item} não encontrada';">
+                                <div class="tooltip-text">Item #{numero_item}: {desc_escaped[:50]}...</div>
+                            </div>
+                        </div>
+                    </div>
+"""
+        else:
+            html_content += f"""
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#{numero_item}</span>
+                            <span class="quantidade-badge">{item.get('quantidade_total', item['quantidade'])} {unidade_escaped}</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ {item['valor_unitario']:,.2f}</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ {item['valor_total']:,.2f}</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            {desc_escaped}
+                        </div>
+                    </div>
+"""
+    
+    html_content += """
+                </div>
             </div>
             
             <div id="checklist" class="tab-content">
@@ -795,42 +1020,85 @@ def criar_html_cotacao(itens_agrupados):
             event.target.classList.add('active');
         }}
         
-        // Melhorar posicionamento dos tooltips
+        // Melhorar posicionamento dos tooltips e suporte mobile
         document.addEventListener('DOMContentLoaded', function() {{
             const itemsComImagem = document.querySelectorAll('.item-com-imagem');
+            let activeTooltip = null;
+            
+            function fecharTooltip() {{
+                if (activeTooltip) {{
+                    activeTooltip.classList.remove('active');
+                    activeTooltip = null;
+                }}
+            }}
             
             itemsComImagem.forEach(item => {{
                 const tooltip = item.querySelector('.tooltip');
+                if (!tooltip) return;
                 
+                // Desktop: hover
                 item.addEventListener('mouseenter', function(e) {{
-                    // Ajustar posicionamento baseado na posição na tela
-                    const rect = item.getBoundingClientRect();
-                    const tooltipRect = tooltip.getBoundingClientRect();
-                    
-                    // Se tooltip sair da tela à direita, alinhar à direita
-                    if (rect.left + tooltipRect.width > window.innerWidth) {{
-                        tooltip.style.left = 'auto';
-                        tooltip.style.right = '0';
-                        tooltip.style.transform = 'none';
-                    }} else {{
-                        tooltip.style.left = '50%';
-                        tooltip.style.right = 'auto';
-                        tooltip.style.transform = 'translateX(-50%)';
-                    }}
-                    
-                    // Se tooltip sair da tela acima, mostrar abaixo
-                    if (rect.top - tooltipRect.height < 0) {{
-                        tooltip.style.bottom = 'auto';
-                        tooltip.style.top = '100%';
-                        tooltip.style.marginBottom = '0';
-                        tooltip.style.marginTop = '10px';
-                    }} else {{
-                        tooltip.style.bottom = '100%';
-                        tooltip.style.top = 'auto';
-                        tooltip.style.marginBottom = '10px';
-                        tooltip.style.marginTop = '0';
+                    if (window.innerWidth > 768) {{
+                        // Ajustar posicionamento baseado na posição na tela
+                        const rect = item.getBoundingClientRect();
+                        const tooltipRect = tooltip.getBoundingClientRect();
+                        
+                        // Se tooltip sair da tela à direita, alinhar à direita
+                        if (rect.left + tooltipRect.width > window.innerWidth) {{
+                            tooltip.style.left = 'auto';
+                            tooltip.style.right = '0';
+                            tooltip.style.transform = 'none';
+                        }} else {{
+                            tooltip.style.left = '50%';
+                            tooltip.style.right = 'auto';
+                            tooltip.style.transform = 'translateX(-50%)';
+                        }}
+                        
+                        // Se tooltip sair da tela acima, mostrar abaixo
+                        if (rect.top - tooltipRect.height < 0) {{
+                            tooltip.style.bottom = 'auto';
+                            tooltip.style.top = '100%';
+                            tooltip.style.marginBottom = '0';
+                            tooltip.style.marginTop = '10px';
+                        }} else {{
+                            tooltip.style.bottom = '100%';
+                            tooltip.style.top = 'auto';
+                            tooltip.style.marginBottom = '10px';
+                            tooltip.style.marginTop = '0';
+                        }}
                     }}
                 }});
+                
+                // Mobile: touch
+                item.addEventListener('touchstart', function(e) {{
+                    if (window.innerWidth <= 768) {{
+                        e.preventDefault();
+                        fecharTooltip();
+                        item.classList.add('active');
+                        activeTooltip = item;
+                    }}
+                }});
+                
+                // Fechar tooltip ao tocar fora (mobile)
+                item.addEventListener('mouseleave', function(e) {{
+                    if (window.innerWidth > 768) {{
+                        // Desktop: fechar no mouseleave
+                    }}
+                }});
+            }});
+            
+            // Fechar tooltip ao tocar em qualquer lugar (mobile)
+            document.addEventListener('touchstart', function(e) {{
+                if (window.innerWidth <= 768 && activeTooltip && !activeTooltip.contains(e.target)) {{
+                    fecharTooltip();
+                }}
+            }});
+            
+            // Fechar tooltip ao clicar fora (mobile)
+            document.addEventListener('click', function(e) {{
+                if (window.innerWidth <= 768 && activeTooltip && !activeTooltip.contains(e.target)) {{
+                    fecharTooltip();
+                }}
             }});
         }});
     </script>

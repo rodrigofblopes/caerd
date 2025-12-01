@@ -214,12 +214,177 @@
             opacity: 1;
         }
         
+        /* Responsividade Mobile */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -15px;
+            padding: 0 15px;
+        }
+        
+        .table-wrapper table {
+            min-width: 800px;
+        }
+        
+        /* Cards para mobile - alternativa à tabela */
+        .mobile-card {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .mobile-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .mobile-card-title {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+        
+        .mobile-card-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+        
+        .mobile-card-label {
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .mobile-card-value {
+            text-align: right;
+            color: #333;
+        }
+        
+        .mobile-card-desc {
+            grid-column: 1 / -1;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .tabs {
+                gap: 5px;
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                padding: 14px 20px;
+                font-size: 1em;
+                flex: 1;
+                min-width: 120px;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .section-title {
+                font-size: 1.4em;
+                margin-bottom: 15px;
+            }
+            
+            /* Esconder tabela em mobile, mostrar cards */
+            .table-wrapper {
+                display: none;
+            }
+            
+            .mobile-cards-container {
+                display: block;
+            }
+            
+            .mobile-card {
+                display: block;
+            }
+            
+            /* Tooltip mobile - usar touch */
+            .item-com-imagem {
+                cursor: pointer;
+            }
+            
+            .item-com-imagem.active .tooltip {
+                display: block;
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                max-width: 90vw;
+                max-height: 60vh;
+                z-index: 10000;
+            }
+            
+            .item-com-imagem.active .tooltip::after {
+                display: none;
+            }
+            
+            .tooltip img {
+                max-width: 100%;
+                max-height: 50vh;
+            }
+            
+            /* Checklist mobile */
+            #checklist-content table {
+                font-size: 0.9em;
+            }
+            
+            #checklist-content th,
+            #checklist-content td {
+                padding: 10px 8px;
+            }
+            
+            #checklist-content input[type="checkbox"] {
+                width: 24px;
+                height: 24px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-cards-container {
+                display: none;
+            }
+        }
+        
         @media print {
             body {
                 background: white;
             }
             .tooltip {
                 display: none !important;
+            }
+            .mobile-cards-container {
+                display: none;
             }
         }
     </style>
@@ -241,18 +406,19 @@
             <div id="insumos" class="tab-content active">
                 <h2 class="section-title">📊 Insumos Medição Dezembro</h2>
                 
-                <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Descrição do Item</th>
-                        <th class="number">Quantidade</th>
-                        <th class="number">Unidade</th>
-                        <th class="number">Valor Unitário (R$)</th>
-                        <th class="number">Valor Total (R$)</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <div class="table-wrapper">
+                    <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Descrição do Item</th>
+                            <th class="number">Quantidade</th>
+                            <th class="number">Unidade</th>
+                            <th class="number">Valor Unitário (R$)</th>
+                            <th class="number">Valor Total (R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
                     <tr>
                         <td><strong>#1</strong></td>
@@ -683,323 +849,749 @@
                         <td class="number"><strong>R$ 13,473.42</strong></td>
                     </tr>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+                </div>
+                
+                <!-- Cards para Mobile -->
+                <div class="mobile-cards-container">
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#1</span>
+                            <span class="quantidade-badge">34.92 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 10,248.43</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 61,490.61</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            PORTA EM ALUMÍNIO DE ABRIR TIPO VENEZIANA COM GUARNIÇÃO, FIXAÇÃO COM PARAFUSOS - FORNECIMENTO E INSTALAÇÃO. AF_12/2019
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#2</span>
+                            <span class="quantidade-badge">27.92 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 830.99</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 2,492.97</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            REVESTIMENTO CERÂMICO PARA PISO COM PLACAS TIPO ESMALTADA DE DIMENSÕES 35X35 CM APLICADA EM AMBIENTES DE ÁREA MENOR QUE 5 M2. AF_02/2023_PE
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#3</span>
+                            <span class="quantidade-badge">6.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 309.62</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 928.86</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            KIT DE ACESSORIOS PARA BANHEIRO EM METAL CROMADO, 5 PECAS, INCLUSO FIXAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#4</span>
+                            <span class="quantidade-badge">4.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 1,813.19</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 5,439.56</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Kit de Porta de abrir / giro, de madeira folha media (nbr 15930) de 800 x 2100 mm, de 35 mm a 40 mm de espessura, nucleo semi-solido (sarrafeado), capa frisada em hdf, acabamento melaminico em padrao madeira, itens inclusos: dobradiças, montagem e instalação do batente, fechadura com execução do furo - fornecimento e instalação
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#5</span>
+                            <span class="quantidade-badge">16.549999999999997 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 6,949.01</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 20,847.03</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Fornecimento e instalação de janela de alumínio de correr com 2 folhas para vidros, com vidros, batente, acabamento com acetato ou brilhante e ferragens e inclusive contramarco.
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#6</span>
+                            <span class="quantidade-badge">32.71 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 1,254.59</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 2,509.18</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            REVESTIMENTO CERÂMICO PARA PAREDES INTERNAS COM PLACAS TIPO ESMALTADA DE DIMENSÕES 20X20 CM APLICADAS NA ALTURA INTEIRA DAS PAREDES.  AF_02/2023_PE
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#7</span>
+                            <span class="quantidade-badge">2.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 348.30</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 696.60</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            VASO SANITARIO SIFONADO CONVENCIONAL COM LOUÇA BRANCA, INCLUSO CONJUNTO DE LIGAÇÃO PARA BACIA SANITÁRIA AJUSTÁVEL - FORNECIMENTO E INSTALAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#8</span>
+                            <span class="quantidade-badge">2.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 110.92</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 221.84</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            CHUVEIRO ELÉTRICO COMUM CORPO PLÁSTICO, TIPO DUCHA - FORNECIMENTO E INSTALAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#9</span>
+                            <span class="quantidade-badge">3.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 1,528.59</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 3,057.18</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            KIT DE PORTA DE MADEIRA PARA PINTURA, SEMI-OCA (LEVE OU MÉDIA), PADRÃO MÉDIO, 70X210CM, ESPESSURA DE 3,5CM, ITENS INCLUSOS: DOBRADIÇAS, MONTAGEM E INSTALAÇÃO DO BATENTE, FECHADURA COM EXECUÇÃO DO FURO - FORNECIMENTO E INSTALAÇÃO. AF_12/2019
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#10</span>
+                            <span class="quantidade-badge">4.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 1,817.06</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 3,634.12</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            BANCADA DE GRANITO CINZA POLIDO, DE 1,50 X 0,60 M, PARA PIA DE COZINHA - FORNECIMENTO E INSTALAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#11</span>
+                            <span class="quantidade-badge">3.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 524.69</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 1,049.37</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            CUBA DE EMBUTIR DE AÇO INOXIDÁVEL MÉDIA, INCLUSO VÁLVULA TIPO AMERICANA EM METAL CROMADO E SIFÃO FLEXÍVEL EM PVC - FORNECIMENTO E INSTALAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#12</span>
+                            <span class="quantidade-badge">3.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 237.39</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 474.78</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            TORNEIRA CROMADA TUBO MÓVEL, DE MESA, 1/2&quot; OU 3/4&quot;, PARA PIA DE COZINHA, PADRÃO ALTO - FORNECIMENTO E INSTALAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#13</span>
+                            <span class="quantidade-badge">3.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 154.57</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 309.15</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            REGISTRO DE GAVETA BRUTO, LATÃO, ROSCÁVEL, 1&quot;, COM ACABAMENTO E CANOPLA CROMADOS - FORNECIMENTO E INSTALAÇÃO. AF_08/2021
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#14</span>
+                            <span class="quantidade-badge">2.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 76.15</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 152.30</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            REGISTRO DE PRESSÃO BRUTO, LATÃO, ROSCÁVEL, 1/2&quot;, COM ACABAMENTO E CANOPLA CROMADOS - FORNECIMENTO E INSTALAÇÃO. AF_08/2021
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#15</span>
+                            <span class="quantidade-badge">4.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 755.62</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 1,511.24</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            BARRA DE APOIO RETA, EM ACO INOX POLIDO, COMPRIMENTO 80 CM,  FIXADA NA PAREDE - FORNECIMENTO E INSTALAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#16</span>
+                            <span class="quantidade-badge">39.8 M</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 11,787.36</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 23,574.72</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            GUARDA-CORPO DE AÇO GALVANIZADO DE 1,10M DE ALTURA, MONTANTES TUBULARES DE 1.1/2  ESPAÇADOS DE 1,20M, TRAVESSA SUPERIOR DE 2 , GRADIL FORMADO POR BARRAS CHATAS EM FERRO DE 32X4,8MM, FIXADO COM CHUMBADOR MECÂNICO. AF_04/2019_PS
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#17</span>
+                            <span class="quantidade-badge">0.87 M</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 626.79</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 626.79</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Escada tipo marinheiro em tubo aco galvanizado 1 1/2&quot; 5 degraus, inclusive corrimão, pintura com zarcão e esmalte sintético
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#18</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 473.84</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 473.84</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            LAVATÓRIO LOUÇA BRANCA COM COLUNA, *44 X 35,5* CM, PADRÃO POPULAR, INCLUSO SIFÃO FLEXÍVEL EM PVC, VÁLVULA E ENGATE FLEXÍVEL 30CM EM PLÁSTICO E COM TORNEIRA CROMADA PADRÃO POPULAR - FORNECIMENTO E INSTALAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#19</span>
+                            <span class="quantidade-badge">1.5 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 499.36</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 499.36</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            INSTALAÇÃO DE VIDRO LISO INCOLOR, E = 3 MM, EM ESQUADRIA DE MADEIRA, FIXADO COM BAGUETE. AF_01/2021
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#20</span>
+                            <span class="quantidade-badge">2.34 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 1,142.94</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 1,142.94</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            INSTALAÇÃO DE VIDRO LISO INCOLOR, E = 4 MM, EM ESQUADRIA DE ALUMÍNIO OU PVC, FIXADO COM BAGUETE. AF_01/2021_PS
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#21</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 655.31</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 655.31</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Aquisição e instalação de Ventilador/Exaustor Axial Industrial, Preto, 30cm, 127v, inclusive instalações elétricas
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#22</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 23,159.40</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 23,159.40</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Aquisição e instalação de Detector de Gás Cloro - DCM 2000, inclusive instalações elétricas
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#23</span>
+                            <span class="quantidade-badge">8.7 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 4,580.11</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 4,580.11</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Portao de correr em chapa tipo painel lambril quadrado, com porta social completa incluida, com requadro, acabamento natural, com trilhos e roldanas, inclusive pintura com zarcão e esmalte sintético
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#24</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 942.94</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 942.94</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Kit de Porta tipo Celeiro, de madeira folha media (nbr 15930) de 700 x 2100 mm, de 35 mm a 40 mm de espessura, nucleo semi-solido (sarrafeado), capa frisada em hdf, acabamento melaminico em padrao madeira, itens inclusos: montagem e instalação do kit roldanas, fechadura com execução do furo - fornecimento e instalação
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#25</span>
+                            <span class="quantidade-badge">1.12 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 2,420.23</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 2,420.23</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Porta em alumínio de correr tipo veneziana com guarnição, fixação com parafusos - fornecimento e instalação. Af_12/2019
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#26</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 97.69</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 97.69</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            SABONETEIRA PLASTICA TIPO DISPENSER PARA SABONETE LIQUIDO COM RESERVATORIO 800 A 1500 ML, INCLUSO FIXAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#27</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 724.22</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 724.22</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            MICTÓRIO SIFONADO LOUÇA BRANCA - PADRÃO MÉDIO - FORNECIMENTO E INSTALAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#28</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 671.79</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 671.79</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Fornecimento de Banco sem Encosto 3 Lugares Madeira
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#29</span>
+                            <span class="quantidade-badge">210.88 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 31,338.87</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 31,338.87</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            TELHAMENTO COM TELHA ESTRUTURAL DE FIBROCIMENTO E= 8 MM, COM ATÉ 2 ÁGUAS, INCLUSO IÇAMENTO. AF_07/2019_PS
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#30</span>
+                            <span class="quantidade-badge">210.88 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 5,898.31</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 5,898.31</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            SUBCOBERTURA COM MANTA PLÁSTICA REVESTIDA POR PELÍCULA DE ALUMÍNO, INCLUSO TRANSPORTE VERTICAL. AF_07/2019
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#31</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 596.02</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 596.02</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Aquisição e instalação de Porta de abrir em aco tipo veneziana, com fundo anticorrosivo / primer de protecao, sem guarnicao/alizar/vista, 90 x 210 cm
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#32</span>
+                            <span class="quantidade-badge">1.98 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 5,006.84</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 5,006.84</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Fornecimento e instalação de janela fixa de alumínio para vidro, com vidro, batente e ferragens, inlusive acabamento, alizar e contramarco
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#33</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 835.34</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 835.34</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Kit porta pronta de madeira, folha leve (nbr 15930) de 900 x 2100 mm, de 35 mm a 40 mm de espessura, com marco em aco, nucleo colmeia, capa lisa em hdf, acabamento melaminico branco (inclui marco, alizares, dobradicas e fechadura),  com execução do furo - fornecimento e instalação
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#34</span>
+                            <span class="quantidade-badge">1.12 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 2,497.82</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 2,497.82</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Fornecimento e instalação de janela de alumínio tipo maxim-ar, com vidros, batente e ferragens, inclusive acabamento e contramarco.
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#35</span>
+                            <span class="quantidade-badge">1.1 m²</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 4,255.91</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 4,255.91</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            Aquisição e instalação de bancada granito cinza, com cuba de embutir de aço, válvula americana em metal, sifão flexível em pvc, engate flexível 30 cm, torneira cromada longa, de parede, 1/2 ou 3/4, p/ cozinha, padrão popular
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#36</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 929.54</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 929.54</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            LAVATÓRIO LOUÇA BRANCA COM COLUNA, 45 X 55CM OU EQUIVALENTE, PADRÃO MÉDIO, INCLUSO SIFÃO TIPO GARRAFA, VÁLVULA E ENGATE FLEXÍVEL DE 40CM EM METAL CROMADO, COM TORNEIRA CROMADA DE MESA, PADRÃO MÉDIO - FORNECIMENTO E INSTALAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#37</span>
+                            <span class="quantidade-badge">1.0 UN</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 897.17</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 897.17</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            VASO SANITARIO SIFONADO CONVENCIONAL PARA PCD SEM FURO FRONTAL COM LOUÇA BRANCA SEM ASSENTO, INCLUSO CONJUNTO DE LIGAÇÃO PARA BACIA SANITÁRIA AJUSTÁVEL - FORNECIMENTO E INSTALAÇÃO. AF_01/2020
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#38</span>
+                            <span class="quantidade-badge">14.64 M</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 1,863.67</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 1,863.67</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            CORRIMÃO SIMPLES, DIÂMETRO EXTERNO = 1 1/2&quot;, EM AÇO GALVANIZADO. AF_04/2019_PS
+                        </div>
+                    </div>
+
+                    <div class="mobile-card">
+                        <div class="mobile-card-header">
+                            <span class="mobile-card-title">#39</span>
+                            <span class="quantidade-badge">18.93 M</span>
+                        </div>
+                        <div class="mobile-card-content">
+                            <span class="mobile-card-label">Valor Unitário:</span>
+                            <span class="mobile-card-value">R$ 13,473.42</span>
+                            <span class="mobile-card-label">Valor Total:</span>
+                            <span class="mobile-card-value"><strong>R$ 13,473.42</strong></span>
+                        </div>
+                        <div class="mobile-card-desc">
+                            GUARDA-CORPO DE AÇO GALVANIZADO DE 1,10M, MONTANTES TUBULARES DE 1.1/4&quot; ESPAÇADOS DE 1,20M, TRAVESSA SUPERIOR DE 1.1/2&quot;, GRADIL FORMADO POR TUBOS HORIZONTAIS DE 1&quot; E VERTICAIS DE 3/4&quot;, FIXADO COM CHUMBADOR MECÂNICO. AF_04/2019_PS
+                        </div>
+                    </div>
+
+                </div>
             </div>
             
             <div id="checklist" class="tab-content">
                 <h2 class="section-title">✅ Checklist da Obra</h2>
                 <div id="checklist-content">
-                    
-    <div style="max-width: 800px; margin: 0 auto;">
-        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-            <p style="margin: 0; color: #666;">
-                <strong>Total de itens:</strong> 14 | 
-                <strong>Concluídos:</strong> <span style="color: #2e7d32;">0</span> | 
-                <strong>Pendentes:</strong> <span style="color: #d32f2f;">14</span>
-            </p>
-        </div>
-        
-        <div style="background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-            <table style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr style="background: #667eea; color: white;">
-                        <th style="padding: 15px; text-align: left; width: 50px;">✓</th>
-                        <th style="padding: 15px; text-align: left;">Item do Checklist</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_0"  onchange="atualizarChecklist(0, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_0" style="cursor: pointer; display: block; margin: 0;">
-                                Ortomosaico com Drone - Bate-Estaca
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_1"  onchange="atualizarChecklist(1, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_1" style="cursor: pointer; display: block; margin: 0;">
-                                Video para GausinSplatting - Bate-Estaca
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_2"  onchange="atualizarChecklist(2, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_2" style="cursor: pointer; display: block; margin: 0;">
-                                Relatório de Impermeabilização e Drenagem
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_3"  onchange="atualizarChecklist(3, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_3" style="cursor: pointer; display: block; margin: 0;">
-                                Projeto da Cobertura com estrutura metálica e telha de fibrocimento - Bate-Estaca
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_4"  onchange="atualizarChecklist(4, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_4" style="cursor: pointer; display: block; margin: 0;">
-                                Projto de Drenagem das águas pluviais da cobertura e piso do entorno
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_5"  onchange="atualizarChecklist(5, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_5" style="cursor: pointer; display: block; margin: 0;">
-                                Foto da Cobertura, analisar qual cobertura vai ficar por cima, qual terá que cortar
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_6"  onchange="atualizarChecklist(6, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_6" style="cursor: pointer; display: block; margin: 0;">
-                                Tirar medida do distanciamento dos pilares e vigas de respaldo para suporte da treliça e atualizar o projeto estrutural que está fora de escala
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_7"  onchange="atualizarChecklist(7, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_7" style="cursor: pointer; display: block; margin: 0;">
-                                Medir in loco área a ser coberta
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_8"  onchange="atualizarChecklist(8, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_8" style="cursor: pointer; display: block; margin: 0;">
-                                Ortomosaico Entrada Pitometria para extração de volume de demolição
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_9"  onchange="atualizarChecklist(9, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_9" style="cursor: pointer; display: block; margin: 0;">
-                                Projeto Cobertura Pitometria em estrutura metalica e telha de fibrocimento
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_10"  onchange="atualizarChecklist(10, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_10" style="cursor: pointer; display: block; margin: 0;">
-                                Comprar tinta Azul Del Rey para estrutura metálica, pintar esquadrias
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_11"  onchange="atualizarChecklist(11, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_11" style="cursor: pointer; display: block; margin: 0;">
-                                Conferir com fiscal se vai manter a telha Kalhetão para dar continuidade ao forro
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_12"  onchange="atualizarChecklist(12, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_12" style="cursor: pointer; display: block; margin: 0;">
-                                Comprar ceramica 35x35 para Sistema de Cloração
-                            </label>
-                        </td>
-                    </tr>
-
-                    <tr style="">
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" id="check_13"  onchange="atualizarChecklist(13, this.checked)" 
-                                   style="width: 20px; height: 20px; cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px;">
-                            <label for="check_13" style="cursor: pointer; display: block; margin: 0;">
-                                Cotas Insumos para Instalações do Conjunto Motor Bomba na empresa da Rio de Janeiro
-                            </label>
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <script>
-        let checklistData = [{"item": "Ortomosaico com Drone - Bate-Estaca", "concluido": false}, {"item": "Video para GausinSplatting - Bate-Estaca", "concluido": false}, {"item": "Relatório de Impermeabilização e Drenagem", "concluido": false}, {"item": "Projeto da Cobertura com estrutura metálica e telha de fibrocimento - Bate-Estaca", "concluido": false}, {"item": "Projto de Drenagem das águas pluviais da cobertura e piso do entorno", "concluido": false}, {"item": "Foto da Cobertura, analisar qual cobertura vai ficar por cima, qual terá que cortar", "concluido": false}, {"item": "Tirar medida do distanciamento dos pilares e vigas de respaldo para suporte da treliça e atualizar o projeto estrutural que está fora de escala", "concluido": false}, {"item": "Medir in loco área a ser coberta", "concluido": false}, {"item": "Ortomosaico Entrada Pitometria para extração de volume de demolição", "concluido": false}, {"item": "Projeto Cobertura Pitometria em estrutura metalica e telha de fibrocimento", "concluido": false}, {"item": "Comprar tinta Azul Del Rey para estrutura metálica, pintar esquadrias", "concluido": false}, {"item": "Conferir com fiscal se vai manter a telha Kalhetão para dar continuidade ao forro", "concluido": false}, {"item": "Comprar ceramica 35x35 para Sistema de Cloração", "concluido": false}, {"item": "Cotas Insumos para Instalações do Conjunto Motor Bomba na empresa da Rio de Janeiro", "concluido": false}];
-        
-        function atualizarChecklist(index, concluido) {
-            checklistData[index].concluido = concluido;
-            atualizarEstatisticas();
-            salvarChecklist();
-        }
-        
-        function atualizarEstatisticas() {
-            const total = checklistData.length;
-            const concluidos = checklistData.filter(item => item.concluido).length;
-            const pendentes = total - concluidos;
-            
-            // Atualizar visualmente as linhas
-            const rows = document.querySelectorAll('#checklist-content tbody tr');
-            rows.forEach((row, index) => {
-                if (checklistData[index].concluido) {
-                    row.style.background = '#e8f5e9';
-                } else {
-                    row.style.background = '';
-                }
-            });
-        }
-        
-        function salvarChecklist() {
-            localStorage.setItem('checklist_caerd', JSON.stringify(checklistData));
-        }
-        
-        function carregarChecklist() {
-            const saved = localStorage.getItem('checklist_caerd');
-            if (saved) {
-                const savedData = JSON.parse(saved);
-                savedData.forEach((item, index) => {
-                    if (index < checklistData.length) {
-                        checklistData[index].concluido = item.concluido;
-                    }
-                });
-                
-                const checkboxes = document.querySelectorAll('#checklist-content input[type="checkbox"]');
-                checkboxes.forEach((checkbox, index) => {
-                    if (index < checklistData.length) {
-                        checkbox.checked = checklistData[index].concluido;
-                    }
-                });
-                
-                atualizarEstatisticas();
-            }
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            carregarChecklist();
-        });
-    </script>
-
+                    {html_checklist}
                 </div>
             </div>
         </div>
     </div>
     
     <script>
-        function showTab(tabName) {
+        function showTab(tabName) {{
             // Esconder todos os conteúdos
-            document.querySelectorAll('.tab-content').forEach(content => {
+            document.querySelectorAll('.tab-content').forEach(content => {{
                 content.classList.remove('active');
-            });
+            }});
             
             // Remover active de todos os botões
-            document.querySelectorAll('.tab-button').forEach(button => {
+            document.querySelectorAll('.tab-button').forEach(button => {{
                 button.classList.remove('active');
-            });
+            }});
             
             // Mostrar conteúdo selecionado
             document.getElementById(tabName).classList.add('active');
             
             // Ativar botão correspondente
             event.target.classList.add('active');
-        }
+        }}
         
-        // Melhorar posicionamento dos tooltips
-        document.addEventListener('DOMContentLoaded', function() {
+        // Melhorar posicionamento dos tooltips e suporte mobile
+        document.addEventListener('DOMContentLoaded', function() {{
             const itemsComImagem = document.querySelectorAll('.item-com-imagem');
+            let activeTooltip = null;
             
-            itemsComImagem.forEach(item => {
+            function fecharTooltip() {{
+                if (activeTooltip) {{
+                    activeTooltip.classList.remove('active');
+                    activeTooltip = null;
+                }}
+            }}
+            
+            itemsComImagem.forEach(item => {{
                 const tooltip = item.querySelector('.tooltip');
+                if (!tooltip) return;
                 
-                item.addEventListener('mouseenter', function(e) {
-                    // Ajustar posicionamento baseado na posição na tela
-                    const rect = item.getBoundingClientRect();
-                    const tooltipRect = tooltip.getBoundingClientRect();
-                    
-                    // Se tooltip sair da tela à direita, alinhar à direita
-                    if (rect.left + tooltipRect.width > window.innerWidth) {
-                        tooltip.style.left = 'auto';
-                        tooltip.style.right = '0';
-                        tooltip.style.transform = 'none';
-                    } else {
-                        tooltip.style.left = '50%';
-                        tooltip.style.right = 'auto';
-                        tooltip.style.transform = 'translateX(-50%)';
-                    }
-                    
-                    // Se tooltip sair da tela acima, mostrar abaixo
-                    if (rect.top - tooltipRect.height < 0) {
-                        tooltip.style.bottom = 'auto';
-                        tooltip.style.top = '100%';
-                        tooltip.style.marginBottom = '0';
-                        tooltip.style.marginTop = '10px';
-                    } else {
-                        tooltip.style.bottom = '100%';
-                        tooltip.style.top = 'auto';
-                        tooltip.style.marginBottom = '10px';
-                        tooltip.style.marginTop = '0';
-                    }
-                });
-            });
-        });
+                // Desktop: hover
+                item.addEventListener('mouseenter', function(e) {{
+                    if (window.innerWidth > 768) {{
+                        // Ajustar posicionamento baseado na posição na tela
+                        const rect = item.getBoundingClientRect();
+                        const tooltipRect = tooltip.getBoundingClientRect();
+                        
+                        // Se tooltip sair da tela à direita, alinhar à direita
+                        if (rect.left + tooltipRect.width > window.innerWidth) {{
+                            tooltip.style.left = 'auto';
+                            tooltip.style.right = '0';
+                            tooltip.style.transform = 'none';
+                        }} else {{
+                            tooltip.style.left = '50%';
+                            tooltip.style.right = 'auto';
+                            tooltip.style.transform = 'translateX(-50%)';
+                        }}
+                        
+                        // Se tooltip sair da tela acima, mostrar abaixo
+                        if (rect.top - tooltipRect.height < 0) {{
+                            tooltip.style.bottom = 'auto';
+                            tooltip.style.top = '100%';
+                            tooltip.style.marginBottom = '0';
+                            tooltip.style.marginTop = '10px';
+                        }} else {{
+                            tooltip.style.bottom = '100%';
+                            tooltip.style.top = 'auto';
+                            tooltip.style.marginBottom = '10px';
+                            tooltip.style.marginTop = '0';
+                        }}
+                    }}
+                }});
+                
+                // Mobile: touch
+                item.addEventListener('touchstart', function(e) {{
+                    if (window.innerWidth <= 768) {{
+                        e.preventDefault();
+                        fecharTooltip();
+                        item.classList.add('active');
+                        activeTooltip = item;
+                    }}
+                }});
+                
+                // Fechar tooltip ao tocar fora (mobile)
+                item.addEventListener('mouseleave', function(e) {{
+                    if (window.innerWidth > 768) {{
+                        // Desktop: fechar no mouseleave
+                    }}
+                }});
+            }});
+            
+            // Fechar tooltip ao tocar em qualquer lugar (mobile)
+            document.addEventListener('touchstart', function(e) {{
+                if (window.innerWidth <= 768 && activeTooltip && !activeTooltip.contains(e.target)) {{
+                    fecharTooltip();
+                }}
+            }});
+            
+            // Fechar tooltip ao clicar fora (mobile)
+            document.addEventListener('click', function(e) {{
+                if (window.innerWidth <= 768 && activeTooltip && !activeTooltip.contains(e.target)) {{
+                    fecharTooltip();
+                }}
+            }});
+        }});
     </script>
 </body>
 </html>
