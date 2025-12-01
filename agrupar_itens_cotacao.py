@@ -995,7 +995,7 @@ def criar_html_cotacao(itens_agrupados):
             <div id="checklist" class="tab-content">
                 <h2 class="section-title">✅ Checklist da Obra</h2>
                 <div id="checklist-content">
-                    {html_checklist}
+                    PLACEHOLDER_CHECKLIST_HTML
                 </div>
             </div>
         </div>
@@ -1105,6 +1105,9 @@ def criar_html_cotacao(itens_agrupados):
 </body>
 </html>
 """
+    
+    # Substituir placeholder pelo HTML do checklist
+    html_content = html_content.replace('PLACEHOLDER_CHECKLIST_HTML', html_checklist)
     
     return html_content
 

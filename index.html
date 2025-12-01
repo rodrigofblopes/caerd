@@ -1486,7 +1486,254 @@
             <div id="checklist" class="tab-content">
                 <h2 class="section-title">✅ Checklist da Obra</h2>
                 <div id="checklist-content">
-                    {html_checklist}
+                    
+    <div style="max-width: 800px; margin: 0 auto;">
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <p style="margin: 0; color: #666;">
+                <strong>Total de itens:</strong> 14 | 
+                <strong>Concluídos:</strong> <span style="color: #2e7d32;">0</span> | 
+                <strong>Pendentes:</strong> <span style="color: #d32f2f;">14</span>
+            </p>
+        </div>
+        
+        <div style="background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #667eea; color: white;">
+                        <th style="padding: 15px; text-align: left; width: 50px;">✓</th>
+                        <th style="padding: 15px; text-align: left;">Item do Checklist</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_0"  onchange="atualizarChecklist(0, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_0" style="cursor: pointer; display: block; margin: 0;">
+                                Ortomosaico com Drone - Bate-Estaca
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_1"  onchange="atualizarChecklist(1, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_1" style="cursor: pointer; display: block; margin: 0;">
+                                Video para GausinSplatting - Bate-Estaca
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_2"  onchange="atualizarChecklist(2, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_2" style="cursor: pointer; display: block; margin: 0;">
+                                Relatório de Impermeabilização e Drenagem
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_3"  onchange="atualizarChecklist(3, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_3" style="cursor: pointer; display: block; margin: 0;">
+                                Projeto da Cobertura com estrutura metálica e telha de fibrocimento - Bate-Estaca
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_4"  onchange="atualizarChecklist(4, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_4" style="cursor: pointer; display: block; margin: 0;">
+                                Projto de Drenagem das águas pluviais da cobertura e piso do entorno
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_5"  onchange="atualizarChecklist(5, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_5" style="cursor: pointer; display: block; margin: 0;">
+                                Foto da Cobertura, analisar qual cobertura vai ficar por cima, qual terá que cortar
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_6"  onchange="atualizarChecklist(6, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_6" style="cursor: pointer; display: block; margin: 0;">
+                                Tirar medida do distanciamento dos pilares e vigas de respaldo para suporte da treliça e atualizar o projeto estrutural que está fora de escala
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_7"  onchange="atualizarChecklist(7, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_7" style="cursor: pointer; display: block; margin: 0;">
+                                Medir in loco área a ser coberta
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_8"  onchange="atualizarChecklist(8, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_8" style="cursor: pointer; display: block; margin: 0;">
+                                Ortomosaico Entrada Pitometria para extração de volume de demolição
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_9"  onchange="atualizarChecklist(9, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_9" style="cursor: pointer; display: block; margin: 0;">
+                                Projeto Cobertura Pitometria em estrutura metalica e telha de fibrocimento
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_10"  onchange="atualizarChecklist(10, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_10" style="cursor: pointer; display: block; margin: 0;">
+                                Comprar tinta Azul Del Rey para estrutura metálica, pintar esquadrias
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_11"  onchange="atualizarChecklist(11, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_11" style="cursor: pointer; display: block; margin: 0;">
+                                Conferir com fiscal se vai manter a telha Kalhetão para dar continuidade ao forro
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_12"  onchange="atualizarChecklist(12, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_12" style="cursor: pointer; display: block; margin: 0;">
+                                Comprar ceramica 35x35 para Sistema de Cloração
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr style="">
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <input type="checkbox" id="check_13"  onchange="atualizarChecklist(13, this.checked)" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            <label for="check_13" style="cursor: pointer; display: block; margin: 0;">
+                                Cotas Insumos para Instalações do Conjunto Motor Bomba na empresa da Rio de Janeiro
+                            </label>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        let checklistData = [{"item": "Ortomosaico com Drone - Bate-Estaca", "concluido": false}, {"item": "Video para GausinSplatting - Bate-Estaca", "concluido": false}, {"item": "Relatório de Impermeabilização e Drenagem", "concluido": false}, {"item": "Projeto da Cobertura com estrutura metálica e telha de fibrocimento - Bate-Estaca", "concluido": false}, {"item": "Projto de Drenagem das águas pluviais da cobertura e piso do entorno", "concluido": false}, {"item": "Foto da Cobertura, analisar qual cobertura vai ficar por cima, qual terá que cortar", "concluido": false}, {"item": "Tirar medida do distanciamento dos pilares e vigas de respaldo para suporte da treliça e atualizar o projeto estrutural que está fora de escala", "concluido": false}, {"item": "Medir in loco área a ser coberta", "concluido": false}, {"item": "Ortomosaico Entrada Pitometria para extração de volume de demolição", "concluido": false}, {"item": "Projeto Cobertura Pitometria em estrutura metalica e telha de fibrocimento", "concluido": false}, {"item": "Comprar tinta Azul Del Rey para estrutura metálica, pintar esquadrias", "concluido": false}, {"item": "Conferir com fiscal se vai manter a telha Kalhetão para dar continuidade ao forro", "concluido": false}, {"item": "Comprar ceramica 35x35 para Sistema de Cloração", "concluido": false}, {"item": "Cotas Insumos para Instalações do Conjunto Motor Bomba na empresa da Rio de Janeiro", "concluido": false}];
+        
+        function atualizarChecklist(index, concluido) {
+            checklistData[index].concluido = concluido;
+            atualizarEstatisticas();
+            salvarChecklist();
+        }
+        
+        function atualizarEstatisticas() {
+            const total = checklistData.length;
+            const concluidos = checklistData.filter(item => item.concluido).length;
+            const pendentes = total - concluidos;
+            
+            // Atualizar visualmente as linhas
+            const rows = document.querySelectorAll('#checklist-content tbody tr');
+            rows.forEach((row, index) => {
+                if (checklistData[index].concluido) {
+                    row.style.background = '#e8f5e9';
+                } else {
+                    row.style.background = '';
+                }
+            });
+        }
+        
+        function salvarChecklist() {
+            localStorage.setItem('checklist_caerd', JSON.stringify(checklistData));
+        }
+        
+        function carregarChecklist() {
+            const saved = localStorage.getItem('checklist_caerd');
+            if (saved) {
+                const savedData = JSON.parse(saved);
+                savedData.forEach((item, index) => {
+                    if (index < checklistData.length) {
+                        checklistData[index].concluido = item.concluido;
+                    }
+                });
+                
+                const checkboxes = document.querySelectorAll('#checklist-content input[type="checkbox"]');
+                checkboxes.forEach((checkbox, index) => {
+                    if (index < checklistData.length) {
+                        checkbox.checked = checklistData[index].concluido;
+                    }
+                });
+                
+                atualizarEstatisticas();
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarChecklist();
+        });
+    </script>
+
                 </div>
             </div>
         </div>
